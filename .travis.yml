@@ -7,3 +7,29 @@ before_install:
 
 script:
   - docker run -e CI=true ammarghazali/docker-react npm run test
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-west-2"
+  app: "docker-react" # First name after "all applications" in Elastic Beanstalk dashboard
+  env: "Docker-env" # Second name after "all applications" in Elastic Beanstalk dashboard
+  bucket_name: "elasticbeanstalk-us-west-2-306476627547"
+  bucket_path: "docker-react" # Folder name created first after deployment - same as app name
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
+# example URL from beanstalk
+# Docker-env.qbtbvwcxmh.us-west-2.elasticbeanstalk.com
+
+# example bucket name from beanstalk
+# elasticbeanstalk-us-west-2-306476627547
+
+# example Access key ID (to be used by travis CI to access AWS Beanstalk)
+# AKIAJPV52U3GUCTOFIUQ
+
+# example Secret access key (obtained along with the Access key ID and password after a configuration taking place)
+# 4N97a4tgI6TtUIYSoHbknvC5EDeN8/DAKxL6niBi (Secret access key)
+#
+
